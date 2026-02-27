@@ -3,7 +3,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
-// Tetap gunakan next/navigation untuk hook navigasi
+
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Search, X } from "lucide-react";
 
@@ -16,7 +16,6 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // State untuk input search desktop
   const [inputValue, setInputValue] = useState(
     searchParams.get("search") || "",
   );
@@ -29,9 +28,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Logika Debounce untuk Search Desktop
   useEffect(() => {
-    // Jangan lakukan apa-apa jika input kosong dan tidak di /menu
     if (!inputValue && pathname !== "/menu") return;
 
     const delayDebounceFn = setTimeout(() => {
@@ -46,16 +43,23 @@ const Navbar = () => {
       const newQuery = params.toString();
       const currentQuery = searchParams.toString();
 
-      // Jalankan router push hanya jika query berubah atau berpindah halaman
       if (newQuery !== currentQuery || pathname !== "/menu") {
         startTransition(() => {
           router.push(`/menu?${newQuery}`, { scroll: false });
         });
       }
-    }, 400); // 400ms delay
+    }, 400);
 
     return () => clearTimeout(delayDebounceFn);
   }, [inputValue, pathname, router]);
+
+  const handleFocus = () => {
+    if (pathname !== "/menu") {
+      const url = inputValue ? `/menu?search=${inputValue}` : "/menu";
+      router.push(url);
+    }
+  };
+  const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 
   return (
     <header
@@ -83,6 +87,7 @@ const Navbar = () => {
             <input
               type="text"
               value={inputValue}
+              onFocus={handleFocus}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Cari menu..."
               className={`w-full bg-white/70 border border-terakota/20 rounded-full py-2 pl-10 pr-4 outline-none focus:border-kunyit transition-all duration-500 ${
@@ -94,7 +99,7 @@ const Navbar = () => {
             <button
               onClick={() => {
                 setIsSearchOpen(!isSearchOpen);
-                if (isSearchOpen) setInputValue(""); // Reset jika user menutup search
+                if (isSearchOpen) setInputValue("");
               }}
               className="absolute left-0 p-2 text-gula-jawa hover:text-terakota transition-colors"
             >
@@ -131,7 +136,7 @@ const Navbar = () => {
           )}
 
           <Link
-            href="https://wa.me/your-number"
+            href={`https://wa.me/${phoneNumber}`}
             className="bg-gula-jawa text-santan px-6 py-2.5 rounded-full hover:bg-terakota transition-all duration-300 shadow-md"
           >
             Pesan
