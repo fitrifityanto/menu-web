@@ -20,7 +20,10 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Gudeg Tradisional | Kehangatan Rasa Otentik",
+  title: {
+    template: "%s | Gudeg Ndalem Simbok",
+    default: "Gudeg Ndalem Simbok",
+  },
   description: "Menyajikan Gudeg legendaris dengan resep turun temurun.",
 };
 
