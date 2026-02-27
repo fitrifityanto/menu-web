@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Flame,
+  Heart,
   Leaf,
   Clock,
   MapPin,
@@ -63,12 +63,14 @@ export default async function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
           <div className="flex flex-col items-center space-y-4">
             <div className="w-16 h-16 bg-terakota/10 flex items-center justify-center rounded-full text-terakota">
-              <Flame size={32} />
+              <Heart size={32} />
             </div>
-            <h3 className="font-serif text-2xl text-gula-jawa">Tungku Kayu</h3>
-            <p className="text-terakota leading-relaxed font-light">
-              Dimasak perlahan selama 12 jam di atas kayu bakar untuk aroma
-              sangit yang khas.
+            <h3 className="font-serif text-2xl text-gula-jawa text-center">
+              Resep Warisan Keluarga
+            </h3>
+            <p className="text-terakota leading-relaxed font-light text-center">
+              Olahan turun-temurun dengan cita rasa gudeg yang otentik resep
+              warisan keluarga.
             </p>
           </div>
           <div className="flex flex-col items-center space-y-4">
@@ -234,14 +236,18 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* FOOTER SEDERHANA */}
+      {/* FOOTER*/}
       <footer className="w-full py-12 px-6 border-t border-gula-jawa/5 bg-santan text-center">
         <p className="font-serif text-gula-jawa text-xl mb-2 italic">
           Gudeg Ndalem Simbok
         </p>
+        <p className="font-serif text-gula-jawa text-md mb-2">
+          Group by Bubur Semangat Pagi
+        </p>
+
         <p className="text-terakota text-xs tracking-widest uppercase">
           © {new Date().getFullYear()} — Gudeg Salatiga asli resep turun
-          temurun Nusantara
+          temurun Kelurga
         </p>
       </footer>
     </div>
