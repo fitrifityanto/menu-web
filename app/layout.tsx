@@ -1,5 +1,5 @@
 // app/layout.tsx
-
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
 import "./globals.css";
@@ -34,8 +34,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${lora.variable} font-sans bg-santan text-gula-jawa antialiased`}
       >
-        <Navbar />
-        <MobileSearch />
+        <Suspense fallback={<div className="h-16" />}>
+          <Navbar />
+        </Suspense>
+        <Suspense fallback={<div className="h-10" />}>
+          <MobileSearch />
+        </Suspense>
         <main className="min-h-screen pb-24 md:pb-0">{children}</main>
 
         {/* Navigation Mobile */}
