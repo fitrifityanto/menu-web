@@ -1,7 +1,13 @@
 //app/menu/page.tsx
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { MenuItem, ApiResponse } from "@/types/menu";
 import MenuCard from "@/components/MenuCard";
+
+export const metadata: Metadata = {
+  title: "Menu",
+  description: "Banyak Pilihan menu Gudeg Ndalem Simbok Andalan kami.",
+};
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 

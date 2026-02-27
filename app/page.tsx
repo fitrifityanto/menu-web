@@ -1,5 +1,6 @@
 //app/page.tsx
 import Image from "next/image";
+import { Metadata } from "next";
 import Link from "next/link";
 import {
   Heart,
@@ -12,6 +13,11 @@ import {
 } from "lucide-react";
 import { MenuItem, ApiResponse } from "@/types/menu";
 import MenuCard from "@/components/MenuCard";
+
+export const metadata: Metadata = {
+  title: "Gudeg Ndalem Simbok",
+  description: "Jelajahi ragam menu gudeg salatiga, resep warisan keluarga.",
+};
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
@@ -37,8 +43,32 @@ export default async function Home() {
   const favoriteIds = [5, 2, 1];
   const menuAndalan = allMenus.filter((item) => favoriteIds.includes(item.ID));
   const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Gudeg Ndalem Simbok",
+    image: `${baseUrl}/opengraph-image.png`,
+    description: "Jelajahi ragam menu gudeg salatiga, resep warisan keluarga.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Ngentak 2/07, Rt 15, Rw 5",
+      addressLocality: "Salatiga",
+      addressRegion: "Jawa Tengah",
+      postalCode: "50742",
+      addressCountry: "ID",
+    },
+    url: baseUrl,
+    priceRange: "RP",
+  };
+
   return (
     <div className="flex flex-col items-center">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* 1. HERO SECTION (Sudah ada di tahap sebelumnya) */}
       <section className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden px-6">
         <div className="relative z-20 text-center max-w-3xl">
