@@ -171,12 +171,19 @@ export default async function Home() {
                 <span className="text-kunyit font-medium tracking-widest uppercase text-xs md:text-sm">
                   Kunjungi Kami
                 </span>
-                <h2 className="font-serif text-3xl md:text-5xl text-gula-jawa mt-2 mb-4 md:mb-6 leading-tight">
-                  Mampir Yuk <br className="hidden md:block" />
-                  <span className="italic text-terakota">
-                    Gudeg Ndalem Simbok
-                  </span>
-                </h2>
+                <Link
+                  href="/"
+                  className="transition-transform hover:scale-105 active:scale-95"
+                >
+                  <Image
+                    src="/logo-gudegndalemsimbok.jpg"
+                    alt="Logo Gudeg Ndalem Simbok"
+                    width={240}
+                    height={80}
+                    priority
+                    className="w-[180px] md:w-[240px] h-auto object-contain"
+                  />
+                </Link>
                 <p className="text-terakota leading-relaxed max-w-sm md:max-w-md mx-auto md:mx-0">
                   Nikmati Gudeg Salatiga resep turun temurun.
                 </p>
