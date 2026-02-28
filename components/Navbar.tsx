@@ -3,6 +3,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Search, X } from "lucide-react";
@@ -71,9 +72,18 @@ const Navbar = () => {
     >
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="font-serif text-2xl font-bold text-gula-jawa">
-          Gudeg
-          <span className="text-terakota italic font-normal">NdalemSimbok</span>
+        <Link
+          href="/"
+          className="transition-transform hover:scale-105 active:scale-95"
+        >
+          <Image
+            src="/logo-gudegndalemsimbok.jpg"
+            alt="Logo Gudeg Ndalem Simbok"
+            width={180}
+            height={60}
+            priority
+            className="w-[150px] md:w-[180px] h-auto object-contain"
+          />
         </Link>
 
         {/* Navigation & Search */}
