@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { MenuItem } from "@/types/menu";
 
@@ -48,14 +49,12 @@ export default function MenuCard({ item }: MenuCardProps) {
 
         {/* Tombol Detail */}
         <div className="mt-auto">
-          <button
-            onClick={() => {
-              /* Navigasi ke detail menu di sini */
-            }}
-            className="w-full py-3 bg-terakota/5 text-terakota border border-terakota/20 rounded-xl font-medium transition-all duration-300 hover:bg-terakota hover:text-white"
+          <Link
+            href={`/menu/${item.ID}`}
+            className="flex items-center justify-center gap-2 w-full py-3 bg-terakota/10 text-terakota border border-terakota/20 rounded-xl font-medium transition-all duration-300 hover:bg-terakota hover:text-white text-center"
           >
             Lihat Detail
-          </button>
+          </Link>
         </div>
       </div>
     </div>

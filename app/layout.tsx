@@ -5,7 +5,7 @@ import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 import Navbar from "@/components/Navbar";
-import MobileSearch from "@/components/MobileSearch";
+import MobileHeader from "@/components/MobileHeader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,7 +41,7 @@ export default function RootLayout({
           <Navbar />
         </Suspense>
         <Suspense fallback={<div className="h-10" />}>
-          <MobileSearch />
+          <MobileHeader />
         </Suspense>
         <main className="min-h-screen pb-24 md:pb-0">{children}</main>
 

@@ -17,3 +17,8 @@ export interface ApiResponse {
   message: string;
   data: MenuItem[];
 }
+
+export interface SingleApiResponse {
+  message: string;
+  data: MenuItem;
+}
