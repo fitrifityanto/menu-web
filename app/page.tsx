@@ -167,7 +167,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
             {/* Kolom Kiri: Informasi (Akan di atas pada mobile) */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-8 md:space-y-10">
-              <div>
+              <div className="flex flex-col items-center md:items-start w-full">
                 <span className="text-kunyit font-medium tracking-widest uppercase text-xs md:text-sm">
                   Kunjungi Kami
                 </span>
@@ -176,12 +176,12 @@ export default async function Home() {
                   className="transition-transform hover:scale-105 active:scale-95"
                 >
                   <Image
-                    src="/logo-gudegndalemsimbok.jpg"
+                    src="/logo-gudegndalemsimbok.png"
                     alt="Logo Gudeg Ndalem Simbok"
                     width={240}
                     height={80}
                     priority
-                    className="w-[180px] md:w-[240px] h-auto object-contain"
+                    className="w-[240px] h-auto object-contain"
                   />
                 </Link>
                 <p className="text-terakota leading-relaxed max-w-sm md:max-w-md mx-auto md:mx-0">
@@ -265,7 +265,6 @@ export default async function Home() {
                   style={{ border: 0 }}
                   allowFullScreen={true}
                   loading="lazy"
-                  className="grayscale hover:grayscale-0 transition-all duration-700"
                 ></iframe>
               </div>
             </div>

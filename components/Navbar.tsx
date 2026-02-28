@@ -77,7 +77,7 @@ const Navbar = () => {
           className="transition-transform hover:scale-105 active:scale-95"
         >
           <Image
-            src="/logo-gudegndalemsimbok.jpg"
+            src="/logo-gudegndalemsimbok.png"
             alt="Logo Gudeg Ndalem Simbok"
             width={180}
             height={60}
