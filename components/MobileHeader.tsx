@@ -28,17 +28,26 @@ const MobileHeader = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedQuery(inputValue);
-    }, 500); // Naikkan sedikit ke 500ms agar lebih aman di HP
+    }, 500);
 
     return () => clearTimeout(handler);
   }, [inputValue]);
 
-  // 3. useEffect kedua: Menangani navigasi (Hanya jalan saat debouncedQuery berubah)
   useEffect(() => {
+    if (pathname !== "/menu") {
+      // Reset state secara instan
+      setInputValue("");
+      setDebouncedQuery("");
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (pathname !== "/menu") return;
+
     const params = new URLSearchParams(searchParams.toString());
     const currentSearch = params.get("search") || "";
 
-    if (debouncedQuery === currentSearch && pathname === "/menu") return;
+    if (debouncedQuery === currentSearch) return;
 
     if (debouncedQuery) {
       params.set("search", debouncedQuery);
@@ -49,7 +58,7 @@ const MobileHeader = () => {
     startTransition(() => {
       router.push(`/menu?${params.toString()}`, { scroll: false });
     });
-  }, [debouncedQuery, pathname, router]);
+  }, [debouncedQuery, pathname, router, searchParams]);
 
   return (
     <div className="md:hidden sticky top-0 z-40 bg-santan/95 backdrop-blur-md px-6 py-4">
