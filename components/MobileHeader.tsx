@@ -14,12 +14,9 @@ const MobileHeader = () => {
   const [inputValue, setInputValue] = useState(
     searchParams.get("search") || "",
   );
+  const [debouncedQuery, setDebouncedQuery] = useState(inputValue);
 
   const isDetailPage = pathname.startsWith("/menu/");
-
-  useEffect(() => {
-    setInputValue(searchParams.get("search") || "");
-  }, [searchParams]);
 
   const handleFocus = () => {
     if (pathname !== "/menu") {
@@ -29,29 +26,30 @@ const MobileHeader = () => {
   };
 
   useEffect(() => {
-    if (!inputValue && pathname !== "/menu") return;
+    const handler = setTimeout(() => {
+      setDebouncedQuery(inputValue);
+    }, 500); // Naikkan sedikit ke 500ms agar lebih aman di HP
 
-    const delayDebounceFn = setTimeout(() => {
-      const params = new URLSearchParams(searchParams.toString());
+    return () => clearTimeout(handler);
+  }, [inputValue]);
 
-      if (inputValue) {
-        params.set("search", inputValue);
-      } else {
-        params.delete("search");
-      }
+  // 3. useEffect kedua: Menangani navigasi (Hanya jalan saat debouncedQuery berubah)
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    const currentSearch = params.get("search") || "";
 
-      const newQuery = params.toString();
-      const currentQuery = searchParams.toString();
+    if (debouncedQuery === currentSearch && pathname === "/menu") return;
 
-      if (newQuery !== currentQuery || pathname !== "/menu") {
-        startTransition(() => {
-          router.push(`/menu?${newQuery}`, { scroll: false });
-        });
-      }
-    }, 400);
+    if (debouncedQuery) {
+      params.set("search", debouncedQuery);
+    } else {
+      params.delete("search");
+    }
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [inputValue, pathname, router]);
+    startTransition(() => {
+      router.push(`/menu?${params.toString()}`, { scroll: false });
+    });
+  }, [debouncedQuery, pathname, router]);
 
   return (
     <div className="md:hidden sticky top-0 z-40 bg-santan/95 backdrop-blur-md px-6 py-4">
@@ -73,11 +71,7 @@ const MobileHeader = () => {
 
         <div className="relative flex-grow group">
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            {isPending ? (
-              <div className="w-4 h-4 border-2 border-kunyit border-t-transparent rounded-full animate-spin" />
-            ) : (
-              <Search size={18} className="text-terakota" />
-            )}
+            <Search size={18} className="text-terakota" />
           </div>
           <input
             type="text"
@@ -87,15 +81,21 @@ const MobileHeader = () => {
             placeholder="Cari nama menu..."
             className="w-full bg-white border border-terakota/10 rounded-2xl py-3 text-sm text-gula-jawa focus:outline-none focus:ring-2 focus:ring-kunyit/20 focus:border-kunyit transition-all pl-11 pr-4"
           />
-          {inputValue.length > 0 && (
-            <button
-              onClick={() => setInputValue("")}
-              className="absolute inset-y-0 right-4 flex items-center text-terakota/50 hover:text-terakota transition-colors"
-              type="button"
-            >
-              <X size={18} />
-            </button>
-          )}
+          <div className="absolute inset-y-0 right-4 flex items-center gap-2">
+            {isPending ? (
+              <div className="w-4 h-4 border-2 border-kunyit border-t-transparent rounded-full animate-spin" />
+            ) : (
+              inputValue.length > 0 && (
+                <button
+                  onClick={() => setInputValue("")}
+                  className="text-terakota/50 hover:text-terakota transition-colors"
+                  type="button"
+                >
+                  <X size={18} />
+                </button>
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>
