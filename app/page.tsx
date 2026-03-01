@@ -40,7 +40,7 @@ async function getMenus() {
 
 export default async function Home() {
   const allMenus: MenuItem[] = await getMenus();
-  const favoriteIds = [5, 2, 1];
+  const favoriteIds = [13, 2, 1];
   const menuAndalan = allMenus.filter((item) => favoriteIds.includes(item.ID));
   const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
@@ -277,9 +277,17 @@ export default async function Home() {
         <p className="font-serif text-gula-jawa text-xl mb-2 italic">
           Gudeg Ndalem Simbok
         </p>
-        <p className="font-serif text-gula-jawa text-md mb-2">
-          Group by Bubur Semangat Pagi
-        </p>
+        <div className="flex items-center justify-center w-full gap-2 mb-2">
+          {/* Teks "Group by" */}
+          <span className="font-serif text-gula-jawa text-sm">Group by</span>
+
+          {/* Logo */}
+          <img
+            src="/logo-bubursemangatpagi.png"
+            alt="Logo Bubur Semangat Pagi"
+            className="h-10 w-auto object-contain"
+          />
+        </div>
 
         <p className="text-terakota text-xs tracking-widest uppercase">
           © {new Date().getFullYear()} — Gudeg Salatiga asli resep turun
